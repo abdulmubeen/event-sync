@@ -3,10 +3,10 @@ import { clerkClient } from "@clerk/clerk-sdk-node";
 
 export async function GET(
   request: Request,
-  context: { params: { userId: string } }
+  { params }: { params: { userId: string } }
 ) {
   try {
-    const userId = context.params.userId;
+    const userId = params.userId;
     const user = await clerkClient.users.getUser(userId);
 
     return NextResponse.json({
