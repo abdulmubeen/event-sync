@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI =
-  "mongodb+srv://admin:admin@cluster0.myedu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -34,21 +33,23 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      if (mongoose.connection.db) {
-        console.log(
-          "Connected to MongoDB database:",
-          mongoose.connection.db.databaseName
-        );
-      }
-      if (mongoose.connection.collections.favoriteevents) {
-        console.log(
-          "Collection name:",
-          mongoose.connection.collections.favoriteevents.collectionName
-        );
-      }
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(MONGODB_URI as string, opts)
+      .then((mongoose) => {
+        if (mongoose.connection.db) {
+          console.log(
+            "Connected to MongoDB database:",
+            mongoose.connection.db.databaseName
+          );
+        }
+        if (mongoose.connection.collections.favoriteevents) {
+          console.log(
+            "Collection name:",
+            mongoose.connection.collections.favoriteevents.collectionName
+          );
+        }
+        return mongoose;
+      });
   }
 
   try {
