@@ -9,6 +9,7 @@ import {
   Anchor,
   Divider,
 } from "@mantine/core";
+import { Attraction } from "@/components/attraction-card/attraction-card";
 
 type AttractionDetailsProps = {
   attraction: Attraction | null;
@@ -122,10 +123,10 @@ export default function AttractionDetails({
             Classification
           </Title>
           <Text>
-            {attraction.classifications.map((cls, index) => (
+            {attraction.classifications!.map((cls, index) => (
               <span key={index}>
                 {cls.segment.name} — {cls.genre.name}
-                {index !== attraction.classifications.length - 1 && ", "}
+                {index !== attraction.classifications!.length - 1 && ", "}
               </span>
             ))}
           </Text>
